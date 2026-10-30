@@ -1,0 +1,18 @@
+# Buildozer / Android build outputs
+.buildozer/
+bin/
+*.apk
+*.aab
+
+# Keystore — never commit
+*.keystore
+*.jks
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE / OS
+.vscode/
+.DS_Store
