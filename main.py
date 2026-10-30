@@ -6,6 +6,19 @@ from kivymd.uix.button import MDFlatButton
 from kivy.uix.label import Label
 from kivy.core.window import Window
 import traceback
+from kivy.utils import platform
+
+# --- كود إجبار الوضع العمودي على أندرويد ---
+if platform == 'android':
+    try:
+        from jnius import autoclass
+        PythonActivity = autoclass('org.kivy.android.PythonActivity')
+        activity = PythonActivity.mActivity
+        # 1 تعني الوضع العمودي (Portrait)
+        activity.setRequestedOrientation(1)
+    except Exception as e:
+        print("Could not force portrait:", e)
+# -------------------------------------------
 
 KV = """
 ScreenManager:
@@ -25,10 +38,15 @@ ScreenManager:
             halign: "center"
             font_style: "H3"
             theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(80)
         MDLabel:
             text: "A pocket reference for medical residents and students"
             halign: "center"
             font_style: "Subtitle1"
+            text_size: self.width, None
+            size_hint_y: None
+            height: dp(80)
         Widget:
         MDRaisedButton:
             text: "Get Started"
@@ -53,6 +71,7 @@ ScreenManager:
                 text: app.disclaimer_text
                 size_hint_y: None
                 height: self.texture_size[1]
+                text_size: self.width, None
                 markup: True
         MDRaisedButton:
             text: "I Understand and Agree"
@@ -132,8 +151,7 @@ class JuniorMedHubApp(MDApp):
             return Builder.load_string(KV)
         except Exception:
             error_trace = traceback.format_exc()
-            print(error_trace) # يطبع الخطأ في الكونسول
-            # يعرض الخطأ على الشاشة بدلاً من الشاشة السوداء
+            print(error_trace)
             return Label(
                 text=error_trace,
                 text_size=(Window.width * 0.9, None),
