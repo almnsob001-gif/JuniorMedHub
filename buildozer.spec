@@ -4,7 +4,10 @@ package.name = juniormedhub
 package.domain = com.juniormedhub
 source.dir = .
 source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,json,txt
-# icon.filename = %(source.dir)s/icon.png  <-- سنفعّلها لاحقاً عندما نرفع الأيقونة
+
+# تفعيل الأيقونة الجديدة
+icon.filename = %(source.dir)s/assets/icon.png
+
 version = 0.1.0 
 
 requirements = python3==3.10.12,hostpython3==3.10.12,kivy==2.3.0,kivymd==1.2.0,cython==0.29.34,pillow,requests
