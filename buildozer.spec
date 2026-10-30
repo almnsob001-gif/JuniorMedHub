@@ -5,8 +5,8 @@ package.domain = com.juniormedhub
 source.dir = .
 source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,json,txt
 
-# تفعيل الأيقونة الجديدة
-icon.filename = %(source.dir)s/assets/icon.png
+# الأيقونة الآن في الصفحة الرئيسية
+icon.filename = %(source.dir)s/icon.png
 
 version = 0.1.0 
 
