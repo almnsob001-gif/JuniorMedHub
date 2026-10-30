@@ -10,7 +10,7 @@ source.exclude_dirs = tests,bin,.github,.git,venv
 
 version = 0.1.0
 
-requirements = python3,kivy==2.3.0,kivymd==1.2.0,pillow,requests
+requirements = python3==3.11.9, hostpython3==3.11.9, kivy==2.3.0, kivymd==1.2.0, pillow, requests
 
 orientation = portrait
 fullscreen = 0
