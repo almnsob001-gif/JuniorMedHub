@@ -1,21 +1,17 @@
-"""
-JuniorMed Hub - Milestone 1
-A pocket reference for medical residents and students.
-"""
-
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
-
+from kivy.uix.label import Label
+from kivy.core.window import Window
+import traceback
 
 KV = """
 ScreenManager:
     WelcomeScreen:
     DisclaimerScreen:
     HomeScreen:
-
 
 <WelcomeScreen>:
     name: "welcome"
@@ -40,7 +36,6 @@ ScreenManager:
             on_release: app.go_to_disclaimer()
         Widget:
 
-
 <DisclaimerScreen>:
     name: "disclaimer"
     MDBoxLayout:
@@ -63,7 +58,6 @@ ScreenManager:
             text: "I Understand and Agree"
             pos_hint: {"center_x": 0.5}
             on_release: app.accept_disclaimer()
-
 
 <HomeScreen>:
     name: "home"
@@ -107,18 +101,14 @@ ScreenManager:
         Widget:
 """
 
-
 class WelcomeScreen(Screen):
     pass
-
 
 class DisclaimerScreen(Screen):
     pass
 
-
 class HomeScreen(Screen):
     pass
-
 
 class JuniorMedHubApp(MDApp):
     disclaimer_text = (
@@ -135,10 +125,21 @@ class JuniorMedHubApp(MDApp):
     )
 
     def build(self):
-        self.title = "JuniorMed Hub"
-        self.theme_cls.primary_palette = "Teal"
-        self.theme_cls.theme_style = "Light"
-        return Builder.load_string(KV)
+        try:
+            self.title = "JuniorMed Hub"
+            self.theme_cls.primary_palette = "Teal"
+            self.theme_cls.theme_style = "Light"
+            return Builder.load_string(KV)
+        except Exception:
+            error_trace = traceback.format_exc()
+            print(error_trace) # يطبع الخطأ في الكونسول
+            # يعرض الخطأ على الشاشة بدلاً من الشاشة السوداء
+            return Label(
+                text=error_trace,
+                text_size=(Window.width * 0.9, None),
+                halign="center",
+                valign="middle"
+            )
 
     def go_to_disclaimer(self):
         self.root.current = "disclaimer"
@@ -149,12 +150,7 @@ class JuniorMedHubApp(MDApp):
     def show_about(self):
         dialog = MDDialog(
             title="About JuniorMed Hub",
-            text=(
-                "Version 0.1.0\n\n"
-                "A pocket reference for medical residents, "
-                "interns, and students.\n\n"
-                "Built with Kivy & KivyMD."
-            ),
+            text="Version 0.1.0\n\nBuilt with Kivy & KivyMD.",
             buttons=[
                 MDFlatButton(
                     text="OK",
@@ -163,7 +159,6 @@ class JuniorMedHubApp(MDApp):
             ],
         )
         dialog.open()
-
 
 if __name__ == "__main__":
     JuniorMedHubApp().run()
